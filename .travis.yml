@@ -11,8 +11,8 @@ script:
 # Docker Image
 - |
   echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USER}" --password-stdin
-  docker build -t "gitopsdemo/app-a:${TRAVIS_COMMIT}" .
-  docker push "gitopsdemo/app-a:${TRAVIS_COMMIT}"
+  docker build -t "ch1aki/app-a:${TRAVIS_COMMIT}" .
+  docker push "ch1aki/app-a:${TRAVIS_COMMIT}"
 
 # Deploy Request
 - |
@@ -42,8 +42,8 @@ script:
   cd app-a/values
   for f in *-app-a.yaml
   do
-    PREV_COMMIT=$(grep -oP "(?<=repository: gitopsdemo/app-a:).+$" "${f}")
-    sed -i -e "s!repository: gitopsdemo/app-a:.\+\$!repository: gitopsdemo/app-a:${TRAVIS_COMMIT}!" "${f}"
+    PREV_COMMIT=$(grep -oP "(?<=repository: ch1aki/app-a:).+$" "${f}")
+    sed -i -e "s!repository: ch1aki/app-a:.\+\$!repository: ch1aki/app-a:${TRAVIS_COMMIT}!" "${f}"
   done
 
   COMMIT_MSG="ch1aki/app-a/${PREV_COMMIT}...${TRAVIS_COMMIT}"
